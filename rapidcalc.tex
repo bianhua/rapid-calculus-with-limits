@@ -1,0 +1,150 @@
+\documentclass[10pt,a4paper]{book}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{pgfplots}
+\usepackage{multicol}
+\usepackage{microtype}
+\usepackage{tabularx}
+\author{Bian Hua}
+\title{Rapid Calculus by Limits}
+\begin{document}
+%Beginning business...
+\maketitle
+\tableofcontents
+
+\chapter{Limits}
+Modern calculus is mostly concerned with the concept of the \textit{limit}, as opposed to the
+original approach, which was based on \textit{infinitesimals}. The differences between these
+two approaches will be discussed more in the chapter on differentiation, but for now be content
+in the knowledge that limits are useful.
+
+Consider the function:
+\[
+	f(x)= {{x^2-1}\over{x-1}}
+\]
+
+With the graph:
+
+\begin{tikzpicture}
+  \begin{axis}[ 
+    xlabel=$x$,
+    ylabel={$f(x)= {{x^2-1}\over{x-1}}$},
+    xmin=0, xmax=5,
+    ymin=0, ymax=5,
+  ] 
+    \addplot[black] {(x^2-1)/(x-1)}; 
+    \addplot[
+    color=black,
+    fill=white,
+    mark=*,
+    only marks
+    ] coordinates{
+    (1,2)
+    };
+  \end{axis}
+\end{tikzpicture}
+
+As the chart suggests, the function is not defined for $x=1$:
+\[
+f(1)= {\frac{1^2-1}{1-1}} = {\frac{0}{0}} = \text{undefined}
+\]
+
+Suppose, however, that we wanted to know what value a function \textit{approaches} as it nears
+a point at which it may or may not be defined. Enter the limit.
+
+Limits come in the form:
+\[
+\lim_{a \to b} f(a)
+\]
+
+Where $a$ is some variable and $b$ is some constant.
+
+In the case of the function in the above example, we could find the value that $f(x)$ approaches
+as $x$ approaches 1 by several methods.
+\newline
+
+\begin{tabularx}{\textwidth}{ l|X }
+	\multicolumn{2}{c}{\textbf{Approaches to $\displaystyle \lim_{x \to 1} {\frac{x^2-1}{x-1}}$}} \\
+	\hline
+	\textbf{Visual} & A visual inspection of the graph shows that $f(1)\approx 2$, but this is far from rigorous. \\
+	\textbf{Numerical} & Creating a table of values can demonstrate the value that the function approaches. For example, $f(0.99)=1.99$ and $f(1.01)=2.01$.\\
+	\textbf{Algebraic} & By factoring out the expression in the denominator, we can create an equivalent function that does not have a hole at $x=1$:
+	\[
+	{\frac{x^2-1}{x-1}} = {\frac{(x-1)(x+1)}{x-1}} = x+1
+	\]
+	\\
+	\textbf{L'H\^{o}pital's Rule} & As will be demonstrated in the chapter on derivative applications:
+	\[
+	\text{For }x=1, {\frac{x^2-1}{x-1}} = {\frac{\frac{d}{dx}\left(x^2-1\right)}{\frac{d}{dx}\left(x-1\right)}} = \frac{2x}{1} = 2x
+	\]
+	\\
+\end{tabularx}
+
+\section{Existence}
+The limit $\displaystyle \lim_{a \to b} f(a)$ exists only if $\displaystyle \lim_{a \to b^{+}} f(a) = \lim_{a \to b^{-}} f(a)$. That is, the function must approach the same value from either direction. The function does not have to equal the values of these limits for the limit to exist, as is demonstrated in Section 1.2.
+
+As may be intuitive, oscillating functions such as $\sin x$ do not have limits as $x$ trends to infinity. Dampened oscillating functions, however, such as $\frac{\sin x}{x}$, do have such limits (in this case, 0). The case of the dampened oscillator is addressed by the \textbf{squeeze theorem}\footnote{The \textbf{squeeze theorem} states (among other things) that $\displaystyle \lim_{x \to \infty} {\frac{\sin x}{x}} = 0$, despite the continued oscillation.}.
+\subsubsection{Sample Problem Set 1}
+Evaluate the limit.
+\begin{multicols}{2}
+\begin{enumerate}
+	\item $\displaystyle \lim_{x \to 3} {x+4}$
+    \item $\displaystyle \lim_{x \to 0} {\frac{1}{x}}$
+    \item $\displaystyle \lim_{x \to \infty} {\frac{2-x}{x^{2}+3}}$
+    \item $\displaystyle \lim_{x \to 3} {\frac{\left(x-3\right)^{2}}{x}}$
+    \item $\displaystyle \lim_{x \to 1.5} {\left[x\right]}$\
+    
+    \textit{$\left[x\right]$ is the nearest integer function.}
+    \item $\displaystyle \lim_{x \to \infty} {\frac{2^{x}}{x^{2}}}$
+    \item $\displaystyle \lim_{x \to 0} {\left|\frac{1}{x^{3}}\right|}$
+\end{enumerate}
+\end{multicols}
+\section{Piecewise Functions}
+Functions that are defined differently for different values of the variable (\textbf{piecewise functions}) are often used to assess students' understanding of the characteristics of limits.
+
+Consider the function:
+
+\[
+p(x) = \left\{
+	\begin{array}{lr}
+       x^{2} & \text{for } x \neq 2\\
+       1 & \text{for } x = 2
+     \end{array}
+   \right.
+\]
+
+With the graph:
+
+\begin{tikzpicture}
+  \begin{axis}[ 
+    xlabel=$x$,
+    ylabel={$p(x)= x^2$},
+    xmin=0, xmax=3,
+    ymin=0, ymax=5,
+  ] 
+    \addplot[black,smooth] {(x^2)}; 
+    \addplot[
+    color=black,
+    fill=white,
+    mark=*,
+    only marks
+    ] coordinates{
+    (2,4)
+    };
+    \addplot[
+    color=black,
+    fill=black,
+    mark=*,
+    only marks
+    ] coordinates{
+    (2,1)
+    };
+  \end{axis}
+\end{tikzpicture}
+
+It should be clear to the reader at this point that $\displaystyle\lim_{x \to 2} p(x) = 4$ regardless of the value assigned to $p(x)$ at $x=2$.
+\end{document}
